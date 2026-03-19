@@ -67,11 +67,11 @@ The generated MIDI file will be saved as `generated.mid` in the output directory
 
 <table>
 <tr><th>#</th><th>Prompt</th><th>Audio</th></tr>
-<tr><td>1</td><td>A melodic pop song with electronic elements, featuring acoustic guitar, piano, synth brass, clean electric guitar, and harmonica, all contributing to a festive Christmas atmosphere.</td><td><audio controls><source src="demo/sample_1.wav" type="audio/wav"></audio></td></tr>
-<tr><td>2</td><td>A melodic electronic song with a spacey and dreamy atmosphere, featuring synth strings, drums, electric bass, glockenspiel, and a brass section.</td><td><audio controls><source src="demo/sample_2.wav" type="audio/wav"></audio></td></tr>
-<tr><td>3</td><td>A cheerful pop Christmas song in D minor, featuring electric and acoustic guitars, trumpet, trombone, and pan flute.</td><td><audio controls><source src="demo/sample_3.wav" type="audio/wav"></audio></td></tr>
-<tr><td>4</td><td>A melodic and energetic rock song with electronic elements, featuring distorted guitars, electric bass, synth strings, alto saxophone, and synth voice.</td><td><audio controls><source src="demo/sample_4.wav" type="audio/wav"></audio></td></tr>
-<tr><td>5</td><td>A melodic classical and electronic piece featuring piano, violin, and cello, set in the key of G major with a fast tempo of 144 bpm.</td><td><audio controls><source src="demo/sample_5.wav" type="audio/wav"></audio></td></tr>
+<tr><td>1</td><td>A melodic pop song with electronic elements, featuring acoustic guitar, piano, synth brass, clean electric guitar, and harmonica, all contributing to a festive Christmas atmosphere.</td><td><audio controls><source src="./demo/sample_1.wav" type="audio/wav"></audio></td></tr>
+<tr><td>2</td><td>A melodic electronic song with a spacey and dreamy atmosphere, featuring synth strings, drums, electric bass, glockenspiel, and a brass section.</td><td><audio controls><source src="./demo/sample_2.wav" type="audio/wav"></audio></td></tr>
+<tr><td>3</td><td>A cheerful pop Christmas song in D minor, featuring electric and acoustic guitars, trumpet, trombone, and pan flute.</td><td><audio controls><source src="./demo/sample_3.wav" type="audio/wav"></audio></td></tr>
+<tr><td>4</td><td>A melodic and energetic rock song with electronic elements, featuring distorted guitars, electric bass, synth strings, alto saxophone, and synth voice.</td><td><audio controls><source src="./demo/sample_4.wav" type="audio/wav"></audio></td></tr>
+<tr><td>5</td><td>A melodic classical and electronic piece featuring piano, violin, and cello, set in the key of G major with a fast tempo of 144 bpm.</td><td><audio controls><source src="./demo/sample_5.wav" type="audio/wav"></audio></td></tr>
 </table>
 
 ## Model Checkpoint
