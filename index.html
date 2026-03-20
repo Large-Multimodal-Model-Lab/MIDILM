@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MidiLM: Generating Symbolic Music from Text</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 70px 28px 80px 28px;
+    }
+
+    .mono {
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    h1 {
+      text-align: center;
+      color: #000093;
+      font-size: 42px;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+
+    .authors {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .venue {
+      text-align: center;
+      font-size: 17px;
+      margin-bottom: 18px;
+      color: #333333;
+    }
+
+    .links {
+      text-align: center;
+      margin-bottom: 26px;
+      font-size: 18px;
+    }
+
+    .links a {
+      color: #0b4dbb;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      color: #000093;
+      font-size: 28px;
+      margin-top: 34px;
+      margin-bottom: 14px;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 0 0 14px 0;
+      text-align: justify;
+    }
+
+    ul {
+      font-size: 18px;
+      margin-top: 0;
+      padding-left: 24px;
+    }
+
+    .figure-wrap {
+      text-align: center;
+      margin: 22px 0 8px 0;
+    }
+
+    .figure-wrap img {
+      max-width: 70%;
+      height: auto;
+      border: 1px solid #dddddd;
+    }
+
+    .figure-caption {
+      margin-top: 8px;
+      color: #444444;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .table-wrap {
+      margin-top: 14px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    tbody tr:nth-child(2n) {
+      border-bottom: 1px solid #cccccc;
+    }
+
+    td {
+      padding: 12px 10px;
+      vertical-align: top;
+      word-break: break-word;
+      font-size: 18px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .sample-note {
+      font-size: 17px;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      margin-top: 42px;
+      font-size: 15px;
+      color: #666666;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 34px 16px 50px 16px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      p, td, ul, .links {
+        font-size: 16px;
+      }
+
+      .figure-wrap img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>MidiLM: A Mixture of Experts Language Model for Symbolic Music Generation</h1>
+
+    <div class="authors">
+      Shuyu Li, Dooho Choi, Yunsick Sung
+    </div>
+
+    <div class="venue">
+      AAAI 2026
+    </div>
+
+    <div class="links">
+      <a href="https://doi.org/10.1609/aaai.v40i28.39483" target="_blank" rel="noopener noreferrer">[Paper]</a>
+      <a href="https://github.com/saimino/test" target="_blank" rel="noopener noreferrer">[Code]</a>
+      <a href="https://huggingface.co/TBD/MidiLM" target="_blank" rel="noopener noreferrer">[Model]</a>
+    </div>
+
+    <h2>Abstract</h2>
+  <p style="text-align: justify;">
+    Text-to-MIDI generation offers editable and hierarchical control over symbolic music generation. Previous approaches either convert text into a limited set of musical attributes and generate music based on these attributes, which limits semantic controllability, or use end-to-end models that map text directly to music without deeply aligning the features of both modalities, often resulting in a lack of structural coherence and mismatches in key, meter, and tempo. We propose MIDILM, which addresses these limitations by employing text conditioning with a dual-path decoder that processes textual and musical information through separate feedforward paths following a shared masked self-attention mechanism. On the MidiCaps benchmark, MIDILM outperformed the strongest baseline, with relative improvements ranging from 6.07% on CLAP to 144.77% on TB across semantic alignment and structural metrics. These gains confirm its ability to enhance both semantic controllability and structural coherence. Collectively, we expect that MIDILM will serve as a useful reference framework for future investigations into controllable and structurally faithful cross-modal music generation.
+  </p>
+    <div class="figure-wrap">
+      <img src="midilm_architecture.jpg" alt="MidiLM architecture" />
+      <div class="figure-caption">Figure 1. Overview of the MidiLM architecture.</div>
+    </div>
+
+    <h2>Generated Samples</h2>
+    <p class="sample-note">
+      The following samples were generated from text prompts using MidiLM. Click each player to listen to the rendered audio.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr>
+            <td class="mono">A melodic pop song with electronic elements, featuring acoustic guitar, piano, synth brass, clean electric guitar, and harmonica, all contributing to a festive Christmas atmosphere.</td>
+          </tr>
+          <tr>
+            <td>
+              <audio controls preload="none">
+                <source src="demo/sample_1.wav" type="audio/wav" />
+              </audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="mono">A melodic electronic song with a spacey and dreamy atmosphere, featuring synth strings, drums, electric bass, glockenspiel, and a brass section.</td>
+          </tr>
+          <tr>
+            <td>
+              <audio controls preload="none">
+                <source src="demo/sample_2.wav" type="audio/wav" />
+              </audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="mono">A cheerful pop Christmas song in D minor, featuring electric and acoustic guitars, trumpet, trombone, and pan flute.</td>
+          </tr>
+          <tr>
+            <td>
+              <audio controls preload="none">
+                <source src="demo/sample_3.wav" type="audio/wav" />
+              </audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="mono">A melodic and energetic rock song with electronic elements, featuring distorted guitars, electric bass, synth strings, alto saxophone, and synth voice.</td>
+          </tr>
+          <tr>
+            <td>
+              <audio controls preload="none">
+                <source src="demo/sample_4.wav" type="audio/wav" />
+              </audio>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="mono">A melodic classical and electronic piece featuring piano, violin, and cello, set in the key of G major with a fast tempo of 144 bpm.</td>
+          </tr>
+          <tr>
+            <td>
+              <audio controls preload="none">
+                <source src="demo/sample_5.wav" type="audio/wav" />
+              </audio>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      This page is hosted with GitHub Pages.
+    </div>
+  </div>
+</body>
+</html>
