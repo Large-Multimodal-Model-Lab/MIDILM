@@ -6,7 +6,7 @@
 [Demo](https://large-multimodal-model-lab.github.io/MIDILM/)
 
 
-Official inference code for the paper **"MidiLM: A Mixture of Experts Language Model for Symbolic Music Generation"** (AAAI 2026).
+Official inference code for the paper **"MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation"** (AAAI 2026).
 
 MidiLM is a 1.67B-parameter language model for text-to-MIDI generation. It employs a dual-path architecture with a Mixture of Experts (MoE) decoder, conditioned on text prompts via a pretrained GPT-2 encoder.
 
