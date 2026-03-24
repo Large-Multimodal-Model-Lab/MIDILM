@@ -2,7 +2,7 @@
 
 [![Paper](https://img.shields.io/badge/Paper-AAAI%202026-blue)](https://doi.org/10.1609/aaai.v40i28.39483)
 [![Model](https://img.shields.io/badge/HuggingFace-Model-yellow)](https://huggingface.co/Large-Multimodal-Model-Lab/MIDILM)
-[![Demo](https://img.shields.io/badge/Demo-Website-blue)](https://large-multimodal-model-lab.github.io/MIDILM/)
+[![Demo](https://img.shields.io/badge/Demo-Website-green)](https://large-multimodal-model-lab.github.io/MIDILM/)
 
 
 Official inference code for the paper **"MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation"** (AAAI 2026).
