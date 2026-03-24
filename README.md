@@ -5,7 +5,7 @@
 [![Demo](https://img.shields.io/badge/Demo-Website-green)](https://large-multimodal-model-lab.github.io/MIDILM/)
 
 
-Official inference code for the paper **"MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation"** (AAAI 2026).
+**"MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation"** (AAAI 2026).
 
 MidiLM is a 1.67B-parameter language model for text-to-MIDI generation. It employs a dual-path architecture with a Mixture of Experts (MoE) decoder, conditioned on text prompts via a pretrained GPT-2 encoder.
 
@@ -64,10 +64,6 @@ python inference.py \
 | `--seed` | `42` | Random seed |
 
 The generated MIDI file will be saved as `generated.mid` in the output directory.
-
-## Model Checkpoint
-
-The pretrained checkpoint can be downloaded from: [TBD]
 
 ## Citation
 
