@@ -5,158 +5,262 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --ink:        #1a1a1a;
+      --ink-soft:   #4a4a4a;
+      --ink-faint:  #888888;
+      --rule:       #e5e5e5;
+      --bg:         #ffffff;
+      --bg-soft:    #fafafa;
+      --accent:     #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
       margin: 0;
-      background: #ffffff;
-      color: #111111;
-      line-height: 1.6;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    body {
+      font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .container {
-      max-width: 980px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 70px 28px 80px 28px;
+      padding: 64px 32px 96px 32px;
     }
 
-    .mono {
-      font-family: "Courier New", Courier, monospace;
+    /* ---------- Title block ---------- */
+    .title-block {
+      text-align: center;
+      padding-bottom: 32px;
+      margin-bottom: 40px;
+    }
+
+    .venue-tag {
+      display: inline-block;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 5px 12px;
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      margin-bottom: 24px;
     }
 
     h1 {
-      text-align: center;
-      color: #000093;
-      font-size: 42px;
-      margin: 0 0 10px 0;
-      font-weight: 700;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 38px;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0 0 24px 0;
+      letter-spacing: -0.015em;
     }
 
     .authors {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .venue {
-      text-align: center;
+      font-family: "Inter", sans-serif;
       font-size: 17px;
-      margin-bottom: 18px;
-      color: #333333;
+      font-weight: 400;
+      margin: 0 0 6px 0;
+      color: var(--ink);
     }
 
+    .authors .sep {
+      color: var(--ink-faint);
+      margin: 0 8px;
+    }
+
+    .affiliation {
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      color: var(--ink-faint);
+      margin-bottom: 24px;
+    }
+
+    /* ---------- Links ---------- */
     .links {
-      text-align: center;
-      margin-bottom: 26px;
-      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .links a {
-      color: #0b4dbb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
       text-decoration: none;
-      margin: 0 10px;
+      padding: 8px 16px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 999px;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
 
     .links a:hover {
-      text-decoration: underline;
+      background: var(--accent);
+      transform: translateY(-1px);
     }
 
+    /* ---------- Section headings ---------- */
     h2 {
-      color: #000093;
-      font-size: 28px;
-      margin-top: 34px;
-      margin-bottom: 14px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      font-size: 26px;
+      color: var(--ink);
+      margin: 56px 0 20px 0;
+      letter-spacing: -0.01em;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--rule);
     }
 
+    /* ---------- Body text ---------- */
     p {
       font-size: 18px;
-      margin: 0 0 14px 0;
+      margin: 0 0 16px 0;
       text-align: justify;
+      hyphens: auto;
+      color: var(--ink-soft);
     }
 
-    ul {
-      font-size: 18px;
-      margin-top: 0;
-      padding-left: 24px;
-    }
-
+    /* ---------- Figure ---------- */
     .figure-wrap {
       text-align: center;
-      margin: 22px 0 8px 0;
+      margin: 24px 0 8px 0;
     }
 
     .figure-wrap img {
-      max-width: 70%;
+      max-width: 85%;
       height: auto;
-      border: 1px solid #dddddd;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px var(--rule);
     }
 
     .figure-caption {
-      margin-top: 8px;
-      color: #444444;
-      font-size: 16px;
+      margin-top: 16px;
+      color: var(--ink-faint);
+      font-size: 15px;
       text-align: center;
+      line-height: 1.55;
     }
 
-    .table-wrap {
-      margin-top: 14px;
-      overflow-x: auto;
+    .figure-caption .label {
+      font-weight: 600;
+      color: var(--ink);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-    }
-
-    tbody tr:nth-child(2n) {
-      border-bottom: 1px solid #cccccc;
-    }
-
-    td {
-      padding: 12px 10px;
-      vertical-align: top;
-      word-break: break-word;
-      font-size: 18px;
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 4px;
-    }
-
+    /* ---------- Sample cards ---------- */
     .sample-note {
       font-size: 17px;
-      text-align: left;
+      color: var(--ink-faint);
+      margin-bottom: 24px;
+    }
+
+    .samples {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .sample-card {
+      background: var(--bg-soft);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 20px 24px;
+      transition: border-color 0.15s ease;
+    }
+
+    .sample-card:hover {
+      border-color: #d0d0d0;
+    }
+
+    .sample-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
+    .sample-num {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: #fef2f2;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    .prompt {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 0 0 14px 0;
+    }
+
+    .sample-card audio {
+      width: 100%;
+      height: 38px;
+    }
+
+    /* ---------- Footer ---------- */
     .footer {
-      margin-top: 42px;
-      font-size: 15px;
-      color: #666666;
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--ink-faint);
       text-align: center;
     }
 
+    /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
       .container {
-        padding: 34px 16px 50px 16px;
+        padding: 40px 20px 60px 20px;
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 28px;
       }
 
       h2 {
-        font-size: 24px;
+        font-size: 22px;
       }
 
-      p, td, ul, .links {
+      body, p, .prompt {
         font-size: 16px;
       }
 
       .figure-wrap img {
         max-width: 100%;
+      }
+
+      .sample-card {
+        padding: 18px 18px;
       }
     }
   </style>
@@ -164,100 +268,114 @@
 
 <body>
   <div class="container">
-    <h1>MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation</h1>
 
-    <div class="authors">
-      Shuyu Li, Dooho Choi, Yunsick Sung
+    <!-- ============ TITLE ============ -->
+    <div class="title-block">
+      <div class="venue-tag">AAAI 2026</div>
+
+      <h1>MIDILM: A Dual-Path Model for Controllable Text-to-MIDI Generation</h1>
+
+      <div class="authors">
+        Shuyu Li<span class="sep">·</span>Dooho Choi<span class="sep">·</span>Yunsick Sung
+      </div>
+      <div class="affiliation">Dongguk University</div>
+
+      <div class="links">
+        <a href="https://doi.org/10.1609/aaai.v40i28.39483" target="_blank" rel="noopener noreferrer">📄 Paper</a>
+        <a href="https://github.com/Large-Multimodal-Model-Lab/MIDILM" target="_blank" rel="noopener noreferrer">💻 Code</a>
+        <a href="https://huggingface.co/Large-Multimodal-Model-Lab/MIDILM" target="_blank" rel="noopener noreferrer">🤗 Model</a>
+      </div>
     </div>
 
-    <div class="venue">
-      AAAI 2026
-    </div>
-
-    <div class="links">
-      <a href="https://doi.org/10.1609/aaai.v40i28.39483" target="_blank" rel="noopener noreferrer">[Paper]</a>
-      <a href="https://github.com/Large-Multimodal-Model-Lab/MIDILM" target="_blank" rel="noopener noreferrer">[Code]</a>
-      <a href="https://huggingface.co/Large-Multimodal-Model-Lab/MIDILM" target="_blank" rel="noopener noreferrer">[Model]</a>
-    </div>
-
+    <!-- ============ ABSTRACT ============ -->
     <h2>Abstract</h2>
-  <p style="text-align: justify;">
-    Text-to-MIDI generation offers editable and hierarchical control over symbolic music generation. Previous approaches either convert text into a limited set of musical attributes and generate music based on these attributes, which limits semantic controllability, or use end-to-end models that map text directly to music without deeply aligning the features of both modalities, often resulting in a lack of structural coherence and mismatches in key, meter, and tempo. We propose MIDILM, which addresses these limitations by employing text conditioning with a dual-path decoder that processes textual and musical information through separate feedforward paths following a shared masked self-attention mechanism. On the MidiCaps benchmark, MIDILM outperformed the strongest baseline, with relative improvements ranging from 6.07% on CLAP to 144.77% on TB across semantic alignment and structural metrics. These gains confirm its ability to enhance both semantic controllability and structural coherence. Collectively, we expect that MIDILM will serve as a useful reference framework for future investigations into controllable and structurally faithful cross-modal music generation.
-  </p>
-    <div class="figure-wrap">
-      <img src="midilm_architecture.jpg" alt="MidiLM architecture" />
-      <div class="figure-caption">Figure 1. Overview of the MidiLM architecture.</div>
-    </div>
-
-    <h2>Generated Samples</h2>
-    <p class="sample-note">
-      The following samples were generated from text prompts using MidiLM. Click each player to listen to the rendered audio.
+    <p>
+      Text-to-MIDI generation offers editable and hierarchical control over symbolic music generation. Previous approaches either convert text into a limited set of musical attributes and generate music based on these attributes, which limits semantic controllability, or use end-to-end models that map text directly to music without deeply aligning the features of both modalities, often resulting in a lack of structural coherence and mismatches in key, meter, and tempo. We propose MIDILM, which addresses these limitations by employing text conditioning with a dual-path decoder that processes textual and musical information through separate feedforward paths following a shared masked self-attention mechanism. On the MidiCaps benchmark, MIDILM outperformed the strongest baseline, with relative improvements ranging from 6.07% on CLAP to 144.77% on TB across semantic alignment and structural metrics. These gains confirm its ability to enhance both semantic controllability and structural coherence. Collectively, we expect that MIDILM will serve as a useful reference framework for future investigations into controllable and structurally faithful cross-modal music generation.
     </p>
 
-    <div class="table-wrap">
-      <table>
-        <tbody>
-          <tr>
-            <td class="mono">A melodic pop song with electronic elements, featuring acoustic guitar, piano, synth brass, clean electric guitar, and harmonica, all contributing to a festive Christmas atmosphere.</td>
-          </tr>
-          <tr>
-            <td>
-              <audio controls preload="none">
-                <source src="demo/sample_1.wav" type="audio/wav" />
-              </audio>
-            </td>
-          </tr>
+    <!-- ============ ARCHITECTURE ============ -->
+    <h2>Architecture</h2>
+    <div class="figure-wrap">
+      <img src="midilm_architecture.jpg" alt="MIDILM architecture diagram" />
+      <div class="figure-caption">
+        <span class="label">Figure 1.</span> Overview of the MIDILM architecture.
+      </div>
+    </div>
 
-          <tr>
-            <td class="mono">A melodic electronic song with a spacey and dreamy atmosphere, featuring synth strings, drums, electric bass, glockenspiel, and a brass section.</td>
-          </tr>
-          <tr>
-            <td>
-              <audio controls preload="none">
-                <source src="demo/sample_2.wav" type="audio/wav" />
-              </audio>
-            </td>
-          </tr>
+    <!-- ============ SAMPLES ============ -->
+    <h2>Generated Samples</h2>
+    <p class="sample-note">
+      The following samples were generated from natural-language prompts using MIDILM.
+    </p>
 
-          <tr>
-            <td class="mono">A cheerful pop Christmas song in D minor, featuring electric and acoustic guitars, trumpet, trombone, and pan flute.</td>
-          </tr>
-          <tr>
-            <td>
-              <audio controls preload="none">
-                <source src="demo/sample_3.wav" type="audio/wav" />
-              </audio>
-            </td>
-          </tr>
+    <div class="samples">
 
-          <tr>
-            <td class="mono">A melodic and energetic rock song with electronic elements, featuring distorted guitars, electric bass, synth strings, alto saxophone, and synth voice.</td>
-          </tr>
-          <tr>
-            <td>
-              <audio controls preload="none">
-                <source src="demo/sample_4.wav" type="audio/wav" />
-              </audio>
-            </td>
-          </tr>
+      <div class="sample-card">
+        <div class="sample-header">
+          <span class="sample-num">SAMPLE 01</span>
+        </div>
+        <p class="prompt">
+          A melodic pop song with electronic elements, featuring acoustic guitar, piano, synth brass, clean electric guitar, and harmonica, all contributing to a festive Christmas atmosphere.
+        </p>
+        <audio controls preload="none">
+          <source src="demo/sample_1.wav" type="audio/wav" />
+        </audio>
+      </div>
 
-          <tr>
-            <td class="mono">A melodic classical and electronic piece featuring piano, violin, and cello, set in the key of G major with a fast tempo of 144 bpm.</td>
-          </tr>
-          <tr>
-            <td>
-              <audio controls preload="none">
-                <source src="demo/sample_5.wav" type="audio/wav" />
-              </audio>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="sample-card">
+        <div class="sample-header">
+          <span class="sample-num">SAMPLE 02</span>
+        </div>
+        <p class="prompt">
+          A melodic electronic song with a spacey and dreamy atmosphere, featuring synth strings, drums, electric bass, glockenspiel, and a brass section.
+        </p>
+        <audio controls preload="none">
+          <source src="demo/sample_2.wav" type="audio/wav" />
+        </audio>
+      </div>
+
+      <div class="sample-card">
+        <div class="sample-header">
+          <span class="sample-num">SAMPLE 03</span>
+        </div>
+        <p class="prompt">
+          A cheerful pop Christmas song in D minor, featuring electric and acoustic guitars, trumpet, trombone, and pan flute.
+        </p>
+        <audio controls preload="none">
+          <source src="demo/sample_3.wav" type="audio/wav" />
+        </audio>
+      </div>
+
+      <div class="sample-card">
+        <div class="sample-header">
+          <span class="sample-num">SAMPLE 04</span>
+        </div>
+        <p class="prompt">
+          A melodic and energetic rock song with electronic elements, featuring distorted guitars, electric bass, synth strings, alto saxophone, and synth voice.
+        </p>
+        <audio controls preload="none">
+          <source src="demo/sample_4.wav" type="audio/wav" />
+        </audio>
+      </div>
+
+      <div class="sample-card">
+        <div class="sample-header">
+          <span class="sample-num">SAMPLE 05</span>
+        </div>
+        <p class="prompt">
+          A melodic classical and electronic piece featuring piano, violin, and cello, set in the key of G major with a fast tempo of 144 bpm.
+        </p>
+        <audio controls preload="none">
+          <source src="demo/sample_5.wav" type="audio/wav" />
+        </audio>
+      </div>
+
     </div>
 
     <div class="footer">
-      This page is hosted with GitHub Pages.
+      Hosted with GitHub Pages
     </div>
+
   </div>
 </body>
 </html>
